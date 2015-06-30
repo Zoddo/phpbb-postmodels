@@ -1,0 +1,5 @@
+services:
+    zoddo.postmodels.listener:
+        class: zoddo\postmodels\event\listener
+        tags:
+            - { name: event.listener }
