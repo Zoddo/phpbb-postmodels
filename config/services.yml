@@ -1,5 +1,19 @@
 services:
     zoddo.postmodels.listener:
         class: zoddo\postmodels\event\listener
+        arguments:
+            - @dbal.conn
+            - @user
+            - @auth
+            - @template
+            - @request
+            - @controller.helper
+            - %core.table_prefix%
         tags:
             - { name: event.listener }
+    zoddo.postmodels.controller:
+        class: zoddo\postmodels\controller\main_controller
+        arguments:
+            - @controller.helper
+            - @request
+            - @zoddo.postmodels.listener

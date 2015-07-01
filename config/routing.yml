@@ -1,0 +1,5 @@
+zoddo_postmodels_refresh:
+    path: /postmodels/refresh.html
+    defaults: { _controller: zoddo.postmodels.controller:refresh }
+    requirements:
+        _method: POST
