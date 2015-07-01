@@ -1,7 +1,7 @@
 <!-- IF S_AUTH_MODEL and S_TOTAL_MODEL -->
 <script type="text/javascript">
     //<![CDATA[
-    var models_refresh_url= '{UA_AJAX_REFRESH}';
+    var models_refresh_url= '{{ U_AJAX_REFRESH|escape('js') }}';
     //]]>
 </script>
 <!-- INCLUDEJS @zoddo_postmodels/postmodels.js -->

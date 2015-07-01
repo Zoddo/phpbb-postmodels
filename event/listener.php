@@ -229,7 +229,7 @@ class listener implements EventSubscriberInterface
 			'S_POST_MODEL'				=> $s_post_model,
 			'S_TOTAL_MODEL'				=> $total_models,
 			'S_TOTAL_LANGUAGE'			=> ($total_language > 1) ? true : false,
-			'UA_AJAX_REFRESH'			=> addslashes($this->helper->route('zoddo_postmodels_refresh')),
+			'U_AJAX_REFRESH'			=> $this->helper->route('zoddo_postmodels_refresh'),
 		));
 
 		return $s_language . '&nbsp;' . $s_post_model .'&nbsp;' . $button;
