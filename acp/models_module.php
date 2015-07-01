@@ -86,7 +86,8 @@ class models_module
 					{
 						$sql = 'SELECT model_id
 							FROM ' . $table_prefix . "models
-							WHERE model_title = '" . $db->sql_escape($model_row['model_title']) . "'";
+							WHERE model_title = '" . $db->sql_escape($model_row['model_title']) . "'
+								AND model_lang = '" . $db->sql_escape($model_row['model_lang']) . "'";
 						$result = $db->sql_query($sql);
 						$row = $db->sql_fetchrow($result);
 						$db->sql_freeresult($result);
