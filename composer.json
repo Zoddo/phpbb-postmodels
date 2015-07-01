@@ -9,13 +9,13 @@
 		{
 			"name": "Zoddo",
 			"email": "zoddo.ino@gmail.com",
-            "role": "Developer of the extension"
+			"role": "Developer of the extension"
 		},
-        {
+		{
 			"name": "Elglobo",
 			"email": "elglobo@phpbb-services.com",
-            "homepage": "http://www.phpbb-services.com",
-            "role": "Developer of the original MOD"
+			"homepage": "http://www.phpbb-services.com",
+			"role": "Developer of the original MOD"
 		}
 	],
 	"require": {
