@@ -23,7 +23,7 @@ class v110beta1 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.update', array('post_models_version', '1.0.0-dev')),
+			array('config.update', array('post_models_version', '1.1.0-b1')),
 			array('config.remove', array('post_models_enable')), // We remove this option since than an extension can be easily disabled
 
 			// We remove the old acp module
