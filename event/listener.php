@@ -187,7 +187,7 @@ class listener implements EventSubscriberInterface
 				$default_language = false;
 				foreach ($postrow as $row)
 				{
-					foreach($row as $cell)
+					foreach ($row as $cell)
 					{
 						if ($cell == $this->user->data['user_lang'] && ($default_language == false))
 						{
@@ -200,10 +200,10 @@ class listener implements EventSubscriberInterface
 
 				$s_post_model .= '<option value="">' . $this->user->lang['SELECT_MODEL'] . '</option>';
 				$s_language .= '<select id="selected_language" name="selected_language" onchange="models_refresh(\''.$forum_id.'\', this.value);">';
-				for($i = 0; $i < $total_models; $i++)
+				for ($i = 0; $i < $total_models; $i++)
 				{
 					//Don't add a language in duplicate
-					if ( !preg_match('#<option value="' . $postrow[$i]['model_lang'] . '"#', $s_language) )
+					if (!preg_match('#<option value="' . $postrow[$i]['model_lang'] . '"#', $s_language))
 					{
 						$selected = ($postrow[$i]['model_lang'] == $selected_language) ? ' selected="selected"' : '';
 						$s_language .= '<option value="' . $postrow[$i]['model_lang'] . '"' . $selected . '>' . $postrow[$i]['lang_local_name'] . '</option>';
