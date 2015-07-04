@@ -23,7 +23,7 @@ class v110rc1 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.update', array('post_models_version', '1.1.0-dev')),
+			array('config.update', array('post_models_version', '1.1.0-rc1')),
 		);
 	}
 }
