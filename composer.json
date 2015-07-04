@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "This extension allows you to create post models that can be used when posting a new message.",
 	"homepage": "https://github.com/Zoddo/phpbb-postmodels",
-	"version": "1.1.0-b1",
+	"version": "1.1.0-dev",
 	"license": "GPL-2.0",
 	"authors": [
 		{
@@ -28,7 +28,7 @@
 	"extra": {
 		"display-name": "Post Models",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.0"
+			"phpbb/phpbb": ">=3.1.4"
 		},
 		"version-check": {
 			"host": "zoddo.github.io",
