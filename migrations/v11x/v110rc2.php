@@ -10,19 +10,19 @@
 
 namespace zoddo\postmodels\migrations\v11x;
 
-class v110 extends \phpbb\db\migration\migration
+class v110rc2 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
 		return array(
-			'\zoddo\postmodels\migrations\v11x\v110rc2',
+			'\zoddo\postmodels\migrations\v11x\v110rc1',
 		);
 	}
 
 	public function update_data()
 	{
 		return array(
-			array('config.update', array('post_models_version', '1.1.0')),
+			array('config.update', array('post_models_version', '1.1.0-rc2')),
 		);
 	}
 }

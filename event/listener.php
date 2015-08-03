@@ -153,7 +153,7 @@ class listener implements EventSubscriberInterface
 			{
 				$sql_where_auth .= ' AND m.model_auth <= ' . constants::MODEL_ADMINISTRATORS;
 			}
-			else if ($this->auth->acl_get('m_'))
+			else if ($this->auth->acl_get('m_', $forum_id))
 			{
 				$sql_where_auth .= ' AND m.model_auth <= ' . constants::MODEL_MODERATORS;
 			}
