@@ -16,6 +16,16 @@
 			"email": "elglobo@phpbb-services.com",
 			"homepage": "http://www.phpbb-services.com",
 			"role": "Developer of the original MOD"
+		},
+		{
+			"name": "Bassel Taha Alhitary",
+			"homepage": "http://www.alhitary.net",
+			"role": "Arabic Translator"
+		},
+		{
+			"name": "Holger",
+			"homepage": "https://www.maskinisten.net",
+			"role": "Swedish Translator"
 		}
 	],
 	"require": {
