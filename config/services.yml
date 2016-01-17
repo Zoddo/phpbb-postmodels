@@ -2,6 +2,17 @@ services:
     zoddo.postmodels.listener:
         class: zoddo\postmodels\event\listener
         arguments:
+            - @zoddo.postmodels.helper
+        tags:
+            - { name: event.listener }
+    zoddo.postmodels.controller:
+        class: zoddo\postmodels\controller\main_controller
+        arguments:
+            - @request
+            - @zoddo.postmodels.helper
+    zoddo.postmodels.helper:
+        class: zoddo\postmodels\helper\helper
+        arguments:
             - @dbal.conn
             - @user
             - @auth
@@ -9,11 +20,3 @@ services:
             - @request
             - @controller.helper
             - %core.table_prefix%
-        tags:
-            - { name: event.listener }
-    zoddo.postmodels.controller:
-        class: zoddo\postmodels\controller\main_controller
-        arguments:
-            - @controller.helper
-            - @request
-            - @zoddo.postmodels.listener

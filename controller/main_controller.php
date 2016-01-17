@@ -14,33 +14,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 class main_controller
 {
-	/** @var \phpbb\controller\helper */
-	protected $helper;
-
 	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var \zoddo\postmodels\event\listener */
-	protected $postmodels_listener;
+	/** @var \zoddo\postmodels\helper\helper */
+	protected $helper;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\controller\helper				$helper
 	 * @param \phpbb\request\request				$request
-	 * @param \zoddo\postmodels\event\listener		$postmodels_listener
+	 * @param \zoddo\postmodels\helper\helper		$helper
 	 */
-	public function __construct(\phpbb\controller\helper $helper, \phpbb\request\request $request, \zoddo\postmodels\event\listener $postmodels_listener)
+	public function __construct(\phpbb\request\request $request, \zoddo\postmodels\helper\helper $helper)
 	{
-		$this->helper = $helper;
 		$this->request = $request;
-		$this->postmodels_listener = $postmodels_listener;
+		$this->helper = $helper;
 	}
 
 	public function refresh()
 	{
 		$forum_id = $this->request->variable('f', 0);
 
-		return new Response($this->postmodels_listener->generate_post_models($forum_id));
+		return new Response($this->helper->generate_post_models($forum_id));
 	}
 }
