@@ -136,7 +136,6 @@ class listener implements EventSubscriberInterface
 		}
 		else
 		{
-
 			$s_auth_model = ($this->auth->acl_get('f_models', $forum_id)) ? true : false;
 			$sql_where_auth = 'm.model_pm >= 0';
 		}

@@ -23,7 +23,10 @@ class models_module
 		global $config, $db, $user, $template, $request, $phpbb_log;
 		global $table_prefix, $phpbb_root_path, $phpEx;
 
-		include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		if (!function_exists('display_custom_bbcodes'))
+		{
+			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		}
 		$user->add_lang('posting');
 		$user->add_lang_ext('zoddo/postmodels', 'models_acp');
 
@@ -36,7 +39,7 @@ class models_module
 		$this->page_title = 'ACP_MODELS';
 
 		$form_name = 'acp_models';
-		add_form_key('acp_models');
+		add_form_key($form_name);
 
 		$error = array();
 		switch ($action)
