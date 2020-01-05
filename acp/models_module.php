@@ -14,6 +14,13 @@ use zoddo\postmodels\constants;
 
 class models_module
 {
+	/** @var string */
+	protected $tpl_name;
+
+	/** @var string */
+	protected $page_title;
+
+	/** @var string */
 	public $u_action;
 
 	public function main($id, $mode)
