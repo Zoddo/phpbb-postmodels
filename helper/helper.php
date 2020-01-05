@@ -116,7 +116,7 @@ class helper
 				$postrow[] = $row;
 			}
 			$this->db->sql_freeresult($result);
-			$total_models = sizeof($postrow);
+			$total_models = count($postrow);
 
 			$s_post_model = '<select id="post_model" name="post_model">';
 

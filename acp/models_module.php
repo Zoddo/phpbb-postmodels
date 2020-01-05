@@ -136,7 +136,7 @@ class models_module
 						}
 					}
 
-					if (!sizeof($error))
+					if (!count($error))
 					{
 						// New model?
 						if ($action == 'add')
@@ -214,7 +214,7 @@ class models_module
 						'L_TITLE'		=> $language->lang('MODEL_' . $l_title),
 						'U_ACTION'		=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
 						'U_BACK'		=> $this->u_action,
-						'ERROR_MSG'		=> (sizeof($error)) ? implode('<br />', $error) : '',
+						'ERROR_MSG'		=> (count($error)) ? implode('<br />', $error) : '',
 
 						'MODEL_TITLE'			=> $model_row['model_title'],
 						'MODEL_CONTENT'			=> $model_row['model_content'],
@@ -226,7 +226,7 @@ class models_module
 						'S_SELECTED_FOUNDERS'	=> $s_selected_founders,
 
 						'S_EDIT_MODEL'			=> true,
-						'S_ERROR'				=> (sizeof($error)) ? true : false,
+						'S_ERROR'				=> (count($error)) ? true : false,
 
 						'S_BBCODE_QUOTE'		=> true,
 						'S_BBCODE_IMG'			=> true,
