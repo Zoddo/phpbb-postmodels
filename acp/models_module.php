@@ -182,47 +182,43 @@ class models_module
 				$l_title = ($action == 'edit') ? 'EDIT' : 'ADD';
 				$default_language = ($action == 'edit') ? $model_row['model_lang'] : $user->data['user_lang'];
 
-				$s_selected_users = $s_selected_mod = $s_selected_admin = $s_selected_founders = '';
+				// build model auth list.
+				$model_items = array(
+					'USERS'				=> constants::MODEL_USERS,
+					'MODERATORS'		=> constants::MODEL_MODERATORS,
+					'ADMINISTRATORS'	=> constants::MODEL_ADMINISTRATORS,
+					'FOUNDERS'			=> constants::MODEL_FOUNDERS,
+				);
 
-				if ($model_row['model_auth'] == constants::MODEL_USERS)
+				foreach ($model_items as $name => $value)
 				{
-					$s_selected_users = 'selected="selected"';
+					// Set output block vars for display in the template
+					$template->assign_block_vars('options', array(
+						'ID'        => (int) $value,
+						'NAME'      => $language->lang($name),
+						'S_DEFAULT' => (int) $model_row['model_auth'] === (int) $value,
+				));
 				}
-				else if ($model_row['model_auth'] == constants::MODEL_MODERATORS)
-				{
-					$s_selected_mod = 'selected="selected"';
-				}
-				else if ($model_row['model_auth'] == constants::MODEL_ADMINISTRATORS)
-				{
-					$s_selected_admin = 'selected="selected"';
-				}
-				else if ($model_row['model_auth'] == constants::MODEL_FOUNDERS)
-				{
-					$s_selected_founders = 'selected="selected"';
-				}
+				unset ($model_items, $name, $value);
 
 				$template->assign_vars(array(
-					'L_TITLE'				=> $language->lang('MODEL_' . $l_title),
-					'U_ACTION'				=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
-					'U_BACK'				=> $this->u_action,
-					'ERROR_MSG'				=> (count($error)) ? implode('<br>', $error) : '',
+					'L_TITLE'			=> $language->lang('MODEL_' . $l_title),
+					'U_ACTION'			=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
+					'U_BACK'			=> $this->u_action,
+					'ERROR_MSG'			=> (count($error)) ? implode('<br>', $error) : '',
 
-					'MODEL_TITLE'			=> $model_row['model_title'],
-					'MODEL_CONTENT'			=> $model_row['model_content'],
-					'MODEL_PM'				=> $model_row['model_pm'],
-					'S_MODEL_LANG'			=> language_select($default_language),
-					'S_SELECTED_USERS'		=> $s_selected_users,
-					'S_SELECTED_MOD'		=> $s_selected_mod,
-					'S_SELECTED_ADMIN'		=> $s_selected_admin,
-					'S_SELECTED_FOUNDERS'	=> $s_selected_founders,
+					'MODEL_TITLE'		=> $model_row['model_title'],
+					'MODEL_CONTENT'		=> $model_row['model_content'],
+					'MODEL_PM'			=> $model_row['model_pm'],
+					'S_MODEL_LANG'		=> language_select($default_language),
 
-					'S_EDIT_MODEL'			=> true,
-					'S_ERROR'				=> (count($error)) ? true : false,
+					'S_EDIT_MODEL'		=> true,
+					'S_ERROR'			=> (count($error)) ? true : false,
 
-					'S_BBCODE_QUOTE'		=> true,
-					'S_BBCODE_IMG'			=> true,
-					'S_LINKS_ALLOWED'		=> $config['allow_post_links'] ? true : false,
-					'S_BBCODE_FLASH'		=> $config['allow_post_flash'] ? true : false,
+					'S_BBCODE_QUOTE'	=> true,
+					'S_BBCODE_IMG'		=> true,
+					'S_LINKS_ALLOWED'	=> $config['allow_post_links'] ? true : false,
+					'S_BBCODE_FLASH'	=> $config['allow_post_flash'] ? true : false,
 				));
 
 				display_custom_bbcodes();

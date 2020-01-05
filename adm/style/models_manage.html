@@ -35,12 +35,11 @@
         <dl>
             <dt><label for="model_auth">{{ lang('MODEL_AUTH') ~ lang('COLON') }}</label>
                 <br><span>{{ lang('MODEL_AUTH_EXPLAIN') }}</span></dt>
-            <dd><select id="model_auth" name="model_auth">
-                <option value="0" {{ S_SELECTED_USERS }}>{{ lang('USERS') }}</option>
-                <option value="1" {{ S_SELECTED_MOD }}>{{ lang('MODERATORS') }}</option>
-                <option value="2" {{ S_SELECTED_ADMIN }}>{{ lang('ADMINISTRATORS') }}</option>
-                <option value="3" {{ S_SELECTED_FOUNDERS }}>{{ lang('FOUNDERS') }}</option></select>
-            </dd>
+            <dd><select name="model_auth" id="model_auth">
+                {% for options in loops.options %}
+                <option value="{{ options.ID }}"{% if options.S_DEFAULT %} selected{% endif %}>{{ options.NAME }}</option>
+                {% endfor %}
+            </select>
         </dl>
         <dl>
             <dt><label for="model_pm">{{ lang('MODEL_PM') ~ lang('COLON') }}</label>
