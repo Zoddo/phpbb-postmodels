@@ -53,18 +53,9 @@ class listener implements EventSubscriberInterface
 	 */
 	public function add_permission($event)
 	{
-		$permissions = $event['permissions'];
-		$permissions += array(
-			// ACP
-			'a_models'		=> array('lang' => 'ACL_A_MODELS', 'cat' => 'posting'),
-
-			// Forum
-			'f_models'		=> array('lang' => 'ACL_F_MODELS', 'cat' => 'post'),
-
-			// UCP
-			'u_pm_models'	=> array('lang' => 'ACL_U_PM_MODELS', 'cat' => 'pm'),
-		);
-		$event['permissions'] = $permissions;
+		$event->update_subarray('permissions', 'a_models', ['lang' => 'ACL_A_MODELS', 'cat' => 'posting']);
+		$event->update_subarray('permissions', 'f_models', ['lang' => 'ACL_F_MODELS', 'cat' => 'post']);
+		$event->update_subarray('permissions', 'u_pm_models', ['lang' => 'ACL_U_PM_MODELS', 'cat' => 'pm']);
 	}
 
 	/**
