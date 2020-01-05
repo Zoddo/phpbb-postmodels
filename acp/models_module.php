@@ -18,17 +18,45 @@ class models_module
 
 	public function main($id, $mode)
 	{
+		global $phpbb_container;
+
+		/** @type \phpbb\language\language $language */
+		$language = $phpbb_container->get('language');
+
 		/** @var \phpbb\request\request $request */
+		$request = $phpbb_container->get('request');
+
+		/** @var \phpbb\db\driver\driver_interface $db */
+		$db = $phpbb_container->get('dbal.conn');
+
+		/** @var \phpbb\user $user */
+		$user = $phpbb_container->get('user');
+
+		/** @var \phpbb\template\template $template */
+		$template = $phpbb_container->get('template');
+
+		/** @var \phpbb\config\config $config */
+		$config = $phpbb_container->get('config');
+
 		/** @var \phpbb\log\log $phpbb_log */
-		global $config, $db, $user, $template, $request, $phpbb_log;
-		global $table_prefix, $phpbb_root_path, $phpEx;
+		$phpbb_log = $phpbb_container->get('log');
+
+		/** @var $phpbb_path_helper \phpbb\path_helper */
+		$phpbb_path_helper = $phpbb_container->get('path_helper');
+		$phpbb_root_path = $phpbb_path_helper->get_phpbb_root_path();
+		$phpEx = $phpbb_path_helper->get_php_ext();
+
+		/** @var  $config_php_file \phpbb\config_php_file */
+		$config_php_file = new \phpbb\config_php_file($phpbb_root_path, $phpEx);
+		$table_prefix = $config_php_file->get('table_prefix');
 
 		if (!function_exists('display_custom_bbcodes'))
 		{
 			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 		}
-		$user->add_lang('posting');
-		$user->add_lang_ext('zoddo/postmodels', 'models_acp');
+
+		$language->add_lang('posting');
+		$language->add_lang('models_acp', 'zoddo/postmodels');
 
 		// Set up general vars
 		$action = $request->variable('action', '');
@@ -59,12 +87,12 @@ class models_module
 				{
 					if (!check_form_key($form_name))
 					{
-						$error[] = $user->lang['FORM_INVALID'];
+						$error[] = $language->lang('FORM_INVALID');
 					}
 					// Model specified?
 					if (!$model_row['model_title'] || !$model_row['model_content'] || !$model_row['model_lang'])
 					{
-						$error[] = $user->lang['NO_MODEL_INFO'];
+						$error[] = $language->lang('NO_MODEL_INFO');
 					}
 
 					$check_double = ($action == 'add') ? true : false;
@@ -97,7 +125,7 @@ class models_module
 
 						if ($row)
 						{
-							$error[] = $user->lang['MODEL_ALREADY_EXIST'];
+							$error[] = $language->lang('MODEL_ALREADY_EXIST');
 						}
 					}
 
@@ -135,7 +163,7 @@ class models_module
 						}
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_MODEL_' . $log, time(), array($model_row['model_title']));
-						trigger_error($user->lang['MODEL_' . $log] . adm_back_link($this->u_action));
+						trigger_error($language->lang('MODEL_' . $log) . adm_back_link($this->u_action));
 					}
 				}
 				else if ($model_id)
@@ -149,7 +177,7 @@ class models_module
 
 					if (!$model_row)
 					{
-						trigger_error($user->lang['NO_MODEL'] . adm_back_link($this->u_action), E_USER_WARNING);
+						trigger_error($language->lang('NO_MODEL') . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 				}
 
@@ -176,7 +204,7 @@ class models_module
 				}
 
 				$template->assign_vars(array(
-						'L_TITLE'		=> $user->lang['MODEL_' . $l_title],
+						'L_TITLE'		=> $language->lang('MODEL_' . $l_title),
 						'U_ACTION'		=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
 						'U_BACK'		=> $this->u_action,
 						'ERROR_MSG'		=> (sizeof($error)) ? implode('<br />', $error) : '',
@@ -215,7 +243,7 @@ class models_module
 
 				if (!$model_row)
 				{
-					trigger_error($user->lang['NO_MODEL'] . adm_back_link($this->u_action), E_USER_WARNING);
+					trigger_error($language->lang('NO_MODEL') . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
 				// Let the deletion be confirmed...
@@ -224,11 +252,11 @@ class models_module
 					$db->sql_query('DELETE FROM ' . $table_prefix . 'models WHERE model_id = ' . (int) $model_id);
 
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_MODEL_REMOVED', time(), array($model_row['model_title']));
-					trigger_error($user->lang['MODEL_REMOVED'] . adm_back_link($this->u_action));
+					trigger_error($language->lang('MODEL_REMOVED') . adm_back_link($this->u_action));
 				}
 				else
 				{
-					confirm_box(false, $user->lang['CONFIRM_OPERATION'], build_hidden_fields(array(
+					confirm_box(false, $language->lang('CONFIRM_OPERATION'), build_hidden_fields(array(
 							'i'			=> $id,
 							'mode'		=> $mode,
 							'action'	=> $action,
@@ -258,15 +286,15 @@ class models_module
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$model_auth = array($user->lang['USERS'], $user->lang['MODERATORS'], $user->lang['ADMINISTRATORS'], $user->lang['FOUNDERS']);
+			$model_auth = array($language->lang('USERS'), $language->lang('MODERATORS'), $language->lang('ADMINISTRATORS'), $language->lang('FOUNDERS'));
 			$no_exist = (in_array($row['model_lang'], $language)) ? false : true;
 
 			$template->assign_block_vars('models', array(
 					'MODEL_TITLE'	=> $row['model_title'],
 					'MODEL_AUTH'	=> $model_auth[$row['model_auth']],
-					'MODEL_PM'		=> $row['model_pm'] ? $user->lang['YES'] : $user->lang['NO'],
+					'MODEL_PM'		=> $row['model_pm'] ? $language->lang('YES') : $language->lang('NO'),
 					'MODEL_LANG'	=> $row['model_lang'],
-					'MODEL_EXIST'	=> ($no_exist == true) ? $user->lang['NO_EXIST'] : '',
+					'MODEL_EXIST'	=> ($no_exist == true) ? $language->lang('NO_EXIST') : '',
 
 					'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;id=' . $row['model_id'],
 					'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;id=' . $row['model_id'],)
