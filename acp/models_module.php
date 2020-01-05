@@ -15,10 +15,10 @@ use zoddo\postmodels\constants;
 class models_module
 {
 	/** @var string */
-	protected $tpl_name;
+	public $tpl_name;
 
 	/** @var string */
-	protected $page_title;
+	public $page_title;
 
 	/** @var string */
 	public $u_action;
