@@ -73,9 +73,6 @@
 <p>{{ lang('ACP_MODELS_EXPLAIN') }}</p>
 
 <form id="models" method="post" action="{{ U_ACTION }}">
-    <fieldset class="tabulated">
-        <legend>{{ lang('ACP_MODELS') }}</legend>
-
         {% if loops.models|length %}
         <table class="table1 zebra-table">
             <thead>
@@ -108,13 +105,11 @@
 
         {% endif %}
 
-        <p class="quick">
-            <input type="hidden" name="action" value="add">
+    <fieldset class="quick">
+        <input type="hidden" name="action" value="add">
 
-            <input type="text" name="model_title" size="30">
-            <input class="button2" name="addmodel" type="submit" value="{{ lang('ADD_NEW_MODEL') }}">
-            {{ S_FORM_TOKEN }}
-        </p>
+        <input class="button2" name="addmodel" type="submit" value="{{ lang('ADD_NEW_MODEL') }}">
+        {{ S_FORM_TOKEN }}
     </fieldset>
 </form>
 

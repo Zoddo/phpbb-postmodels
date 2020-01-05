@@ -293,7 +293,7 @@ class models_module
 		while ($row = $db->sql_fetchrow($result))
 		{
 			$model_auth = array($language->lang('USERS'), $language->lang('MODERATORS'), $language->lang('ADMINISTRATORS'), $language->lang('FOUNDERS'));
-			$no_exist = in_array($row['model_lang'], $lang_ary);
+			$no_exist = !in_array($row['model_lang'], $lang_ary);
 
 			$template->assign_block_vars('models', array(
 				'MODEL_TITLE'	=> $row['model_title'],
