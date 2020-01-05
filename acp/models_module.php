@@ -278,10 +278,10 @@ class models_module
 			ORDER BY lang_english_name";
 		$result = $db->sql_query($sql, 600);
 
-		$language = array();
+		$lang_ary = array();
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$language[] = $row['lang_iso'];
+			$lang_ary[] = $row['lang_iso'];
 		}
 		$db->sql_freeresult($result);
 
@@ -293,7 +293,7 @@ class models_module
 		while ($row = $db->sql_fetchrow($result))
 		{
 			$model_auth = array($language->lang('USERS'), $language->lang('MODERATORS'), $language->lang('ADMINISTRATORS'), $language->lang('FOUNDERS'));
-			$no_exist = (in_array($row['model_lang'], $language)) ? false : true;
+			$no_exist = in_array($row['model_lang'], $lang_ary);
 
 			$template->assign_block_vars('models', array(
 				'MODEL_TITLE'	=> $row['model_title'],
