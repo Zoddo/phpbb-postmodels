@@ -152,7 +152,7 @@ class helper
 					//Don't add a language in duplicate
 					if (!preg_match('#<option value="' . $postrow[$i]['model_lang'] . '"#', $s_language))
 					{
-						$selected = ($postrow[$i]['model_lang'] == $selected_language) ? ' selected="selected"' : '';
+						$selected = ($postrow[$i]['model_lang'] == $selected_language) ? ' selected' : '';
 						$s_language .= '<option value="' . $postrow[$i]['model_lang'] . '"' . $selected . '>' . $postrow[$i]['lang_local_name'] . '</option>';
 						$total_language++;
 					}
@@ -166,7 +166,7 @@ class helper
 				$s_language .= '</select>';
 			}
 			$s_post_model .= '</select>';
-			$button = '<input type="button" class="button2" name="insert_post_model" value="'. $this->user->lang['INSERT'] .'" style="width: 70px" onclick="insert_text(post_model.value)" />';
+			$button = '<input type="button" class="button2" name="insert_post_model" value="'. $this->user->lang['INSERT'] .'" style="width: 70px" onclick="insert_text(post_model.value)">';
 		}
 
 		$this->template->assign_vars(array(

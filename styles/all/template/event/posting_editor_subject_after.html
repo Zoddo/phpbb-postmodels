@@ -1,0 +1,6 @@
+{% if S_AUTH_MODEL and S_TOTAL_MODEL %}
+<dl style="clear: left;">
+    <dt><label for="post_model">{{ lang('MODELS_POST') }}{{ lang('COLON') }}</label></dt>
+    <dd id="models_refresh_id">{% if S_TOTAL_LANGUAGE %}{{ S_LANGUAGE }}&nbsp;{% endif %}{{ S_POST_MODEL }}&nbsp;{{ BUTTON }}</dd>
+</dl>
+{% endif %}

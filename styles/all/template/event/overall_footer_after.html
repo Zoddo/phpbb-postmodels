@@ -1,8 +1,8 @@
-<!-- IF S_AUTH_MODEL and S_TOTAL_MODEL -->
+{% if S_AUTH_MODEL and S_TOTAL_MODEL %}
 <script type="text/javascript">
     //<![CDATA[
     var models_refresh_url= '{{ U_AJAX_REFRESH|escape('js') }}';
     //]]>
 </script>
-<!-- INCLUDEJS @zoddo_postmodels/postmodels.js -->
-<!-- ENDIF -->
+{% INCLUDEJS '@zoddo_postmodels/postmodels.js' %}
+{% endif %}
