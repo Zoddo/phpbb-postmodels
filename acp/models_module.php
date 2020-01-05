@@ -81,13 +81,12 @@ class models_module
 		{
 			case 'add':
 			case 'edit':
-
 				$model_row = array(
-					'model_title'			=> $request->variable('model_title', '', true),
-					'model_content'			=> $request->variable('model_content', '', true),
-					'model_auth'			=> $request->variable('model_auth', 0),
-					'model_pm'				=> $request->variable('model_pm', 0),
-					'model_lang'			=> $request->variable('model_lang', '', true),
+					'model_title'	=> $request->variable('model_title', '', true),
+					'model_content'	=> $request->variable('model_content', '', true),
+					'model_auth'	=> $request->variable('model_auth', 0),
+					'model_pm'		=> $request->variable('model_pm', 0),
+					'model_lang'	=> $request->variable('model_lang', '', true),
 				);
 
 				if ($submit)
@@ -142,11 +141,11 @@ class models_module
 						if ($action == 'add')
 						{
 							$sql_ary = array(
-								'model_title'		=> (string) $model_row['model_title'],
-								'model_content'		=> (string) $model_row['model_content'],
-								'model_auth'		=> (int) $model_row['model_auth'],
-								'model_pm'			=> (int) $model_row['model_pm'],
-								'model_lang'		=> (string) $model_row['model_lang'],
+								'model_title'	=> (string) $model_row['model_title'],
+								'model_content'	=> (string) $model_row['model_content'],
+								'model_auth'	=> (int) $model_row['model_auth'],
+								'model_pm'		=> (int) $model_row['model_pm'],
+								'model_lang'	=> (string) $model_row['model_lang'],
 							);
 
 							$db->sql_query('INSERT INTO ' . $table_prefix . 'models ' . $db->sql_build_array('INSERT', $sql_ary));
@@ -156,11 +155,11 @@ class models_module
 						else if ($model_id)
 						{
 							$sql_ary = array(
-								'model_title'		=> (string) $model_row['model_title'],
-								'model_content'		=> (string) $model_row['model_content'],
-								'model_auth'		=> (int) $model_row['model_auth'],
-								'model_pm'			=> (int) $model_row['model_pm'],
-								'model_lang'		=> (string) $model_row['model_lang'],
+								'model_title'	=> (string) $model_row['model_title'],
+								'model_content'	=> (string) $model_row['model_content'],
+								'model_auth'	=> (int) $model_row['model_auth'],
+								'model_pm'		=> (int) $model_row['model_pm'],
+								'model_lang'	=> (string) $model_row['model_lang'],
 							);
 
 							$db->sql_query('UPDATE ' . $table_prefix . 'models SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
@@ -211,33 +210,33 @@ class models_module
 				}
 
 				$template->assign_vars(array(
-						'L_TITLE'		=> $language->lang('MODEL_' . $l_title),
-						'U_ACTION'		=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
-						'U_BACK'		=> $this->u_action,
-						'ERROR_MSG'		=> (count($error)) ? implode('<br />', $error) : '',
+					'L_TITLE'				=> $language->lang('MODEL_' . $l_title),
+					'U_ACTION'				=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
+					'U_BACK'				=> $this->u_action,
+					'ERROR_MSG'				=> (count($error)) ? implode('<br />', $error) : '',
 
-						'MODEL_TITLE'			=> $model_row['model_title'],
-						'MODEL_CONTENT'			=> $model_row['model_content'],
-						'MODEL_PM'				=> $model_row['model_pm'],
-						'S_MODEL_LANG'			=> language_select($default_language),
-						'S_SELECTED_USERS'		=> $s_selected_users,
-						'S_SELECTED_MOD'		=> $s_selected_mod,
-						'S_SELECTED_ADMIN'		=> $s_selected_admin,
-						'S_SELECTED_FOUNDERS'	=> $s_selected_founders,
+					'MODEL_TITLE'			=> $model_row['model_title'],
+					'MODEL_CONTENT'			=> $model_row['model_content'],
+					'MODEL_PM'				=> $model_row['model_pm'],
+					'S_MODEL_LANG'			=> language_select($default_language),
+					'S_SELECTED_USERS'		=> $s_selected_users,
+					'S_SELECTED_MOD'		=> $s_selected_mod,
+					'S_SELECTED_ADMIN'		=> $s_selected_admin,
+					'S_SELECTED_FOUNDERS'	=> $s_selected_founders,
 
-						'S_EDIT_MODEL'			=> true,
-						'S_ERROR'				=> (count($error)) ? true : false,
+					'S_EDIT_MODEL'			=> true,
+					'S_ERROR'				=> (count($error)) ? true : false,
 
-						'S_BBCODE_QUOTE'		=> true,
-						'S_BBCODE_IMG'			=> true,
-						'S_LINKS_ALLOWED'		=> $config['allow_post_links'] ? true : false,
-						'S_BBCODE_FLASH'		=> $config['allow_post_flash'] ? true : false,
+					'S_BBCODE_QUOTE'		=> true,
+					'S_BBCODE_IMG'			=> true,
+					'S_LINKS_ALLOWED'		=> $config['allow_post_links'] ? true : false,
+					'S_BBCODE_FLASH'		=> $config['allow_post_flash'] ? true : false,
 				));
 
 				display_custom_bbcodes();
 
 				return;
-				break;
+			break;
 
 			case 'delete':
 
@@ -264,14 +263,14 @@ class models_module
 				else
 				{
 					confirm_box(false, $language->lang('CONFIRM_OPERATION'), build_hidden_fields(array(
-							'i'			=> $id,
-							'mode'		=> $mode,
-							'action'	=> $action,
-							'id'		=> $model_id
+						'i'			=> $id,
+						'mode'		=> $mode,
+						'action'	=> $action,
+						'id'		=> $model_id,
 					)));
 				}
 
-				break;
+			break;
 		}
 
 		$sql = "SELECT lang_iso
@@ -297,15 +296,15 @@ class models_module
 			$no_exist = (in_array($row['model_lang'], $language)) ? false : true;
 
 			$template->assign_block_vars('models', array(
-					'MODEL_TITLE'	=> $row['model_title'],
-					'MODEL_AUTH'	=> $model_auth[$row['model_auth']],
-					'MODEL_PM'		=> $row['model_pm'] ? $language->lang('YES') : $language->lang('NO'),
-					'MODEL_LANG'	=> $row['model_lang'],
-					'MODEL_EXIST'	=> ($no_exist == true) ? $language->lang('NO_EXIST') : '',
+				'MODEL_TITLE'	=> $row['model_title'],
+				'MODEL_AUTH'	=> $model_auth[$row['model_auth']],
+				'MODEL_PM'		=> $row['model_pm'] ? $language->lang('YES') : $language->lang('NO'),
+				'MODEL_LANG'	=> $row['model_lang'],
+				'MODEL_EXIST'	=> ($no_exist == true) ? $language->lang('NO_EXIST') : '',
 
-					'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;id=' . $row['model_id'],
-					'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;id=' . $row['model_id'],)
-			);
+				'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;id=' . $row['model_id'],
+				'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;id=' . $row['model_id'],
+			));
 		}
 		$db->sql_freeresult($result);
 	}

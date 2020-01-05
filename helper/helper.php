@@ -105,7 +105,7 @@ class helper
 
 			$sql = "SELECT m.model_title, m.model_content, m.model_lang, l.lang_local_name
 		   	FROM " . $this->table_prefix . "models m
-			LEFT JOIN  " . LANG_TABLE ." l ON (m.model_lang = l.lang_iso)
+			LEFT JOIN  " . LANG_TABLE . " l ON (m.model_lang = l.lang_iso)
 			WHERE " . $sql_where_auth . "
 			AND m.model_lang = l.lang_iso
 			ORDER BY model_title, model_lang";
@@ -138,7 +138,7 @@ class helper
 				$selected_language = ($default_language) ? $selected_language : $postrow[0]['model_lang'];
 
 				$s_post_model .= '<option value="">' . $this->language->lang('SELECT_MODEL') . '</option>';
-				$s_language .= '<select id="selected_language" name="selected_language" onchange="models_refresh(\''.$forum_id.'\', this.value);">';
+				$s_language .= '<select id="selected_language" name="selected_language" onchange="models_refresh(\'' . $forum_id . '\', this.value);">';
 				for ($i = 0; $i < $total_models; $i++)
 				{
 					//Don't add a language in duplicate
@@ -171,6 +171,6 @@ class helper
 			'U_AJAX_REFRESH'			=> $this->helper->route('zoddo_postmodels_refresh'),
 		));
 
-		return $s_language . '&nbsp;' . $s_post_model .'&nbsp;' . $button;
+		return $s_language . '&nbsp;' . $s_post_model . '&nbsp;' . $button;
 	}
 }
