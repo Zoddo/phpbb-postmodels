@@ -137,31 +137,23 @@ class models_module
 
 					if (!count($error))
 					{
-						// New model?
-						if ($action == 'add')
-						{
-							$sql_ary = array(
-								'model_title'	=> (string) $model_row['model_title'],
-								'model_content'	=> (string) $model_row['model_content'],
-								'model_auth'	=> (int) $model_row['model_auth'],
-								'model_pm'		=> (int) $model_row['model_pm'],
-								'model_lang'	=> (string) $model_row['model_lang'],
-							);
+						$sql_ary = array(
+							'model_title'	=> (string) $model_row['model_title'],
+							'model_content'	=> (string) $model_row['model_content'],
+							'model_auth'	=> (int) $model_row['model_auth'],
+							'model_pm'		=> (int) $model_row['model_pm'],
+							'model_lang'	=> (string) $model_row['model_lang'],
+						);
 
+						// New model?
+						if ($action == 'add' && empty($model_id))
+						{
 							$db->sql_query('INSERT INTO ' . $table_prefix . 'models ' . $db->sql_build_array('INSERT', $sql_ary));
 
 							$log = 'ADDED';
 						}
-						else if ($model_id)
+						else
 						{
-							$sql_ary = array(
-								'model_title'	=> (string) $model_row['model_title'],
-								'model_content'	=> (string) $model_row['model_content'],
-								'model_auth'	=> (int) $model_row['model_auth'],
-								'model_pm'		=> (int) $model_row['model_pm'],
-								'model_lang'	=> (string) $model_row['model_lang'],
-							);
-
 							$db->sql_query('UPDATE ' . $table_prefix . 'models SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
 								WHERE model_id = ' . (int) $model_id);
 
