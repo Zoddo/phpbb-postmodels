@@ -213,7 +213,7 @@ class models_module
 					'L_TITLE'				=> $language->lang('MODEL_' . $l_title),
 					'U_ACTION'				=> $this->u_action . "&amp;id=$model_id&amp;action=$action",
 					'U_BACK'				=> $this->u_action,
-					'ERROR_MSG'				=> (count($error)) ? implode('<br />', $error) : '',
+					'ERROR_MSG'				=> (count($error)) ? implode('<br>', $error) : '',
 
 					'MODEL_TITLE'			=> $model_row['model_title'],
 					'MODEL_CONTENT'			=> $model_row['model_content'],
