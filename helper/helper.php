@@ -13,8 +13,10 @@ namespace zoddo\postmodels\helper;
 /**
  * @ignore
  */
+
 use phpbb\auth\auth;
 use phpbb\db\driver\driver_interface;
+use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
@@ -25,26 +27,14 @@ use zoddo\postmodels\constants;
  */
 class helper
 {
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\auth\auth */
 	protected $auth;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\request\request */
-	protected $request;
-
-	/** @var \phpbb\controller\helper */
+	protected $db;
 	protected $helper;
-
-	/** @var string */
+	protected $language;
+	protected $request;
 	protected $table_prefix;
+	protected $template;
+	protected $user;
 
 	/**
 	 * Constructor
@@ -55,9 +45,10 @@ class helper
 	 * @param \phpbb\template\template				$template		Template object
 	 * @param \phpbb\request\request				$request		Request object
 	 * @param \phpbb\controller\helper				$helper			Helper object
+	 * @param \phpbb\language\language				$language		Language object
 	 * @param string								$table_prefix	Tables prefix
 	 */
-	public function __construct(driver_interface $db, user $user, auth $auth, template $template, request $request, \phpbb\controller\helper $helper, $table_prefix)
+	public function __construct(driver_interface $db, user $user, auth $auth, template $template, request $request, \phpbb\controller\helper $helper, language $language, $table_prefix)
 	{
 		$this->db = $db;
 		$this->user = $user;
@@ -65,12 +56,13 @@ class helper
 		$this->template = $template;
 		$this->request = $request;
 		$this->helper = $helper;
+		$this->language = $language;
 		$this->table_prefix = $table_prefix;
 	}
 
 	public function generate_post_models($forum_id = 0)
 	{
-		$this->user->add_lang_ext('zoddo/postmodels', 'post_models');
+		$this->language->add_lang('post_models', 'zoddo/postmodels');
 		$selected_language = basename($this->request->variable('selected_language', $this->user->data['user_lang']));
 
 		$s_post_model = $s_language = $button = '';
@@ -113,7 +105,7 @@ class helper
 
 			$sql = "SELECT m.model_title, m.model_content, m.model_lang, l.lang_local_name
 		   	FROM " . $this->table_prefix . "models m
-			LEFT JOIN  " . LANG_TABLE ." l ON (m.model_lang = l.lang_iso)
+			LEFT JOIN  " . LANG_TABLE . " l ON (m.model_lang = l.lang_iso)
 			WHERE " . $sql_where_auth . "
 			AND m.model_lang = l.lang_iso
 			ORDER BY model_title, model_lang";
@@ -124,7 +116,7 @@ class helper
 				$postrow[] = $row;
 			}
 			$this->db->sql_freeresult($result);
-			$total_models = sizeof($postrow);
+			$total_models = count($postrow);
 
 			$s_post_model = '<select id="post_model" name="post_model">';
 
@@ -145,14 +137,14 @@ class helper
 
 				$selected_language = ($default_language) ? $selected_language : $postrow[0]['model_lang'];
 
-				$s_post_model .= '<option value="">' . $this->user->lang['SELECT_MODEL'] . '</option>';
-				$s_language .= '<select id="selected_language" name="selected_language" onchange="models_refresh(\''.$forum_id.'\', this.value);">';
+				$s_post_model .= '<option value="">' . $this->language->lang('SELECT_MODEL') . '</option>';
+				$s_language .= '<select id="selected_language" name="selected_language" onchange="models_refresh(\'' . $forum_id . '\', this.value);">';
 				for ($i = 0; $i < $total_models; $i++)
 				{
 					//Don't add a language in duplicate
 					if (!preg_match('#<option value="' . $postrow[$i]['model_lang'] . '"#', $s_language))
 					{
-						$selected = ($postrow[$i]['model_lang'] == $selected_language) ? ' selected="selected"' : '';
+						$selected = ($postrow[$i]['model_lang'] == $selected_language) ? ' selected' : '';
 						$s_language .= '<option value="' . $postrow[$i]['model_lang'] . '"' . $selected . '>' . $postrow[$i]['lang_local_name'] . '</option>';
 						$total_language++;
 					}
@@ -166,7 +158,7 @@ class helper
 				$s_language .= '</select>';
 			}
 			$s_post_model .= '</select>';
-			$button = '<input type="button" class="button2" name="insert_post_model" value="'. $this->user->lang['INSERT'] .'" style="width: 70px" onclick="insert_text(post_model.value)" />';
+			$button = '<input type="button" class="button2" name="insert_post_model" value="' . $this->language->lang('INSERT') . '" style="width: 70px" onclick="insert_text(post_model.value)">';
 		}
 
 		$this->template->assign_vars(array(
@@ -175,10 +167,10 @@ class helper
 			'S_LANGUAGE'				=> $s_language,
 			'S_POST_MODEL'				=> $s_post_model,
 			'S_TOTAL_MODEL'				=> $total_models,
-			'S_TOTAL_LANGUAGE'			=> ($total_language > 1) ? true : false,
+			'S_TOTAL_LANGUAGE'			=> $total_language > 1,
 			'U_AJAX_REFRESH'			=> $this->helper->route('zoddo_postmodels_refresh'),
 		));
 
-		return $s_language . '&nbsp;' . $s_post_model .'&nbsp;' . $button;
+		return $s_language . '&nbsp;' . $s_post_model . '&nbsp;' . $button;
 	}
 }

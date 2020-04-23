@@ -38,7 +38,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	// ACP Modules
 	'ACP_MODELS'					=> 'Post models',
-	'ACP_MODELS_EXPLAIN'			=> 'Here you can manage the post models that autorized users will be abble to use to create their messages.',
+	'ACP_MODELS_EXPLAIN'			=> 'Here you can manage the post models that authorized users will be able to use to create their messages.',
 
 	// Admin logs
 	'LOG_MODEL_ADDED'		=> '<strong>Added post model</strong><br />» %s',

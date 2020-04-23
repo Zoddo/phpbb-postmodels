@@ -38,7 +38,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	// ACP Modules
 	'ACP_MODELS'					=> 'Modèles de message',
-	'ACP_MODELS_EXPLAIN'			=> 'Vous pouvez gérer les modèles de message que les utilisateurs autorisés pourront utiliser pour rédiger leurs messages.',
+	'ACP_MODELS_EXPLAIN'			=> 'Vous pouvez gérer les modèles de message que les membres autorisés pourront utiliser pour rédiger leurs messages.',
 
 	// Admin logs
 	'LOG_MODEL_ADDED'		=> '<strong>Ajout d’un modèle</strong><br />» %s',
