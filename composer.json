@@ -4,7 +4,7 @@
 	"description": "This extension allows you to create post models that can be used when posting a new message.",
 	"homepage": "https://github.com/Zoddo/phpbb-postmodels",
 	"version": "2.0.0",
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-only",
 	"authors": [
 		{
 			"name": "Zoddo",
