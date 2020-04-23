@@ -53,7 +53,6 @@ class models_module
 		$phpbb_root_path = $phpbb_path_helper->get_phpbb_root_path();
 		$phpEx = $phpbb_path_helper->get_php_ext();
 
-		/** @var  $config_php_file \phpbb\config_php_file */
 		$config_php_file = new \phpbb\config_php_file($phpbb_root_path, $phpEx);
 		$table_prefix = $config_php_file->get('table_prefix');
 
@@ -101,7 +100,7 @@ class models_module
 						$error[] = $language->lang('NO_MODEL_INFO');
 					}
 
-					$check_double = ($action == 'add') ? true : false;
+					$check_double = $action == 'add';
 
 					if ($action == 'edit')
 					{

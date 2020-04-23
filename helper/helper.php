@@ -45,7 +45,7 @@ class helper
 	 * @param \phpbb\template\template				$template		Template object
 	 * @param \phpbb\request\request				$request		Request object
 	 * @param \phpbb\controller\helper				$helper			Helper object
-	 * @param \phpbb\language\language        		$language		Language object
+	 * @param \phpbb\language\language				$language		Language object
 	 * @param string								$table_prefix	Tables prefix
 	 */
 	public function __construct(driver_interface $db, user $user, auth $auth, template $template, request $request, \phpbb\controller\helper $helper, language $language, $table_prefix)
@@ -167,7 +167,7 @@ class helper
 			'S_LANGUAGE'				=> $s_language,
 			'S_POST_MODEL'				=> $s_post_model,
 			'S_TOTAL_MODEL'				=> $total_models,
-			'S_TOTAL_LANGUAGE'			=> ($total_language > 1) ? true : false,
+			'S_TOTAL_LANGUAGE'			=> $total_language > 1,
 			'U_AJAX_REFRESH'			=> $this->helper->route('zoddo_postmodels_refresh'),
 		));
 
